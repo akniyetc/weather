@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.inc.silence.weather.R
 import com.inc.silence.weather.extension.appContext
 import com.inc.silence.weather.extension.viewContainer
+import kotlinx.android.synthetic.main.activity_weather.*
 
 abstract class BaseFragment : Fragment() {
     
@@ -26,6 +27,9 @@ abstract class BaseFragment : Fragment() {
     internal fun notify(@StringRes message: Int) =
             Snackbar.make(viewContainer, message, Snackbar.LENGTH_SHORT).show()
 
+    internal fun notify(message: String) =
+            Snackbar.make(viewContainer, message, Snackbar.LENGTH_SHORT).show()
+
     internal fun notifyWithAction(@StringRes message: Int, @StringRes actionText: Int, action: () -> Any) {
         val snackBar = Snackbar.make(viewContainer, message, Snackbar.LENGTH_INDEFINITE)
         snackBar.setAction(actionText) { _ -> action.invoke() }
@@ -33,4 +37,11 @@ abstract class BaseFragment : Fragment() {
                 R.color.colorTextPrimary))
         snackBar.show()
     }
+
+    internal fun showProgress() = progressStatus(View.VISIBLE)
+
+    internal fun hideProgress() = progressStatus(View.GONE)
+
+    private fun progressStatus(viewStatus: Int) =
+            with(activity) { if (this is BaseActivity) this.progress.visibility = viewStatus }
 }

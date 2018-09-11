@@ -20,7 +20,7 @@ val networkModule = module {
 
 
 object ServiceProperties {
-    const val SERVER_URL = "api.openweathermap.org/"
+    const val SERVER_URL = "https://api.openweathermap.org/"
     const val API_KEY = "46370e4b14a0a7ca2af3bf40954e7fad"
 }
 
@@ -30,10 +30,9 @@ fun createOkHttpClient(): OkHttpClient {
     okHttpClientBuilder.addInterceptor({ chain ->
         var request = chain.request()
         val url = request.url().newBuilder()
-                .build()
+                .addQueryParameter("appid", API_KEY)
         request = request.newBuilder()
-                .addHeader("appid", API_KEY)
-                .url(url)
+                .url(url.build())
                 .build()
         chain.proceed(request)
     })

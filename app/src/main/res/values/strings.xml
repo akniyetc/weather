@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Weather</string>
+
+    <string name="failure_network_connection">No Network Connection.</string>
+    <string name="failure_server_error">Server Error</string>
+    <string name="failure_weather_non_existent">Weather Not Existent.</string>
+
+    <!-- Animations -->
+    <string name="weather_transition_poster">moviePosterTransition</string>
 </resources>

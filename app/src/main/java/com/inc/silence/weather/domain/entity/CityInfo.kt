@@ -4,7 +4,7 @@ import com.inc.silence.weather.extension.empty
 
 data class CityInfo(
         val coord: Coordinate,
-        val weather: Weather,
+        val weather: List<WeatherInfo>,
         val base: String,
         val main: Main,
         val id: Long,
@@ -14,7 +14,7 @@ data class CityInfo(
     companion object {
         fun empty() = CityInfo(
                 Coordinate(0F, 0F),
-                Weather(emptyList()),
+                emptyList(),
                 String.empty(),
                 Main(0.0, 0, 0, 0.0, 0.0),
                 0L,
@@ -27,8 +27,6 @@ data class CityInfo(
 }
 
 data class Coordinate(val lon: Float, val lat: Float)
-
-data class Weather(val infos: List<WeatherInfo>)
 
 data class WeatherInfo(
         val id: Long,

@@ -88,6 +88,7 @@ dependencies {
     implementation applicationDependencies.design
     implementation applicationDependencies.androidAnnotations
     implementation applicationDependencies.glide
+    implementation applicationDependencies.lottie
     implementation applicationDependencies.koin
     implementation applicationDependencies.koinScope
     implementation applicationDependencies.koinViewModel
