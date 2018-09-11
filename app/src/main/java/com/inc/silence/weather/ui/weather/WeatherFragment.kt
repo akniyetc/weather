@@ -37,7 +37,9 @@ class WeatherFragment : BaseFragment() {
     }
 
     private fun renderWeather(detailView: WeatherView?) {
-        //tv_city_name.text = detailView?.name
+        tv_city_name.text = detailView?.name
+        tv_weather_name.text = detailView!!.weather[0].description
+        tv_degree.text = detailView.toDegree()
         hideProgress()
     }
 

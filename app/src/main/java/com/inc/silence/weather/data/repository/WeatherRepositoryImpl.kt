@@ -10,6 +10,7 @@ import com.inc.silence.weather.data.func.Either.Left
 import com.inc.silence.weather.data.func.NetworkHandler
 import com.inc.silence.weather.domain.entity.CityInfo
 import com.inc.silence.weather.domain.entity.WeatherDetails
+import com.inc.silence.weather.domain.repository.WeatherRepository
 import retrofit2.Call
 
 class WeatherRepositoryImpl (val networkHandler: NetworkHandler,

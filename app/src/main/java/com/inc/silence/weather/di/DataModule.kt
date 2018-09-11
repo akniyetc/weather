@@ -1,7 +1,7 @@
 package com.inc.silence.weather.di
 
 import com.inc.silence.weather.data.func.NetworkHandler
-import com.inc.silence.weather.data.repository.WeatherRepository
+import com.inc.silence.weather.domain.repository.WeatherRepository
 import com.inc.silence.weather.data.repository.WeatherRepositoryImpl
 import com.inc.silence.weather.domain.interactor.GetWeather
 import com.inc.silence.weather.presentation.WeatherViewModel

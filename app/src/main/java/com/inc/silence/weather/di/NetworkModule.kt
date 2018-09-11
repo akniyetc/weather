@@ -6,6 +6,7 @@ import com.inc.silence.weather.BuildConfig
 import com.inc.silence.weather.data.WeatherService
 import com.inc.silence.weather.di.ServiceProperties.API_KEY
 import com.inc.silence.weather.di.ServiceProperties.SERVER_URL
+import com.inc.silence.weather.di.ServiceProperties.UNITS
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
@@ -22,6 +23,7 @@ val networkModule = module {
 object ServiceProperties {
     const val SERVER_URL = "https://api.openweathermap.org/"
     const val API_KEY = "46370e4b14a0a7ca2af3bf40954e7fad"
+    const val UNITS = "metric"
 }
 
 fun createOkHttpClient(): OkHttpClient {
@@ -31,6 +33,7 @@ fun createOkHttpClient(): OkHttpClient {
         var request = chain.request()
         val url = request.url().newBuilder()
                 .addQueryParameter("appid", API_KEY)
+                .addQueryParameter("units", UNITS)
         request = request.newBuilder()
                 .url(url.build())
                 .build()

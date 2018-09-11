@@ -8,4 +8,6 @@ data class WeatherView (
         val name: String,
         val weather: List<WeatherInfo>,
         val main: Main
-)
+) {
+    fun toDegree() = main.temp.toInt().toString() + 0x00B0.toChar()
+}

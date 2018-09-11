@@ -1,6 +1,6 @@
 package com.inc.silence.weather.domain.interactor
 
-import com.inc.silence.weather.data.repository.WeatherRepository
+import com.inc.silence.weather.domain.repository.WeatherRepository
 import com.inc.silence.weather.domain.entity.WeatherDetails
 import com.inc.silence.weather.domain.interactor.GetWeather.Params
 import com.inc.silence.weather.domain.interactor.base.UseCase
