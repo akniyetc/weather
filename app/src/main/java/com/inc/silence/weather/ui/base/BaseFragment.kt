@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import com.inc.silence.weather.R
 import com.inc.silence.weather.extension.appContext
 import com.inc.silence.weather.extension.viewContainer
-import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 abstract class BaseFragment : Fragment() {

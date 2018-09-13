@@ -4,6 +4,9 @@
     <string name="failure_network_connection">No Network Connection.</string>
     <string name="failure_server_error">Server Error</string>
     <string name="failure_weather_non_existent">Weather Not Existent.</string>
+    <string name="failure_try_again_snack_bar">TRY AGAIN</string>
+    <string name="permission_denied">Location Permission denied!</string>
+    <string name="location_error">Location error</string>
 
     <!-- Animations -->
     <string name="weather_transition_poster">moviePosterTransition</string>

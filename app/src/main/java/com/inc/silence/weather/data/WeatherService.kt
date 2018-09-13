@@ -1,6 +1,6 @@
 package com.inc.silence.weather.data
 
-import com.inc.silence.weather.domain.entity.CityInfo
+import com.inc.silence.weather.domain.entity.weather.CityInfo
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -10,5 +10,6 @@ interface WeatherService {
         private const val WEATHER = "data/2.5/weather"
     }
 
-    @GET(WEATHER) fun wheatherByCityName(@Query("q") city: String): Call<CityInfo>
+    @GET(WEATHER) fun wheather(@Query("lat") lat: Double,
+                               @Query("lon") lon: Double): Call<CityInfo>
 }

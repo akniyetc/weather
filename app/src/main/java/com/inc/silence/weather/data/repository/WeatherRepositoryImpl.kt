@@ -8,17 +8,17 @@ import com.inc.silence.weather.data.func.Either
 import com.inc.silence.weather.data.func.Either.Right
 import com.inc.silence.weather.data.func.Either.Left
 import com.inc.silence.weather.data.func.NetworkHandler
-import com.inc.silence.weather.domain.entity.CityInfo
-import com.inc.silence.weather.domain.entity.WeatherDetails
+import com.inc.silence.weather.domain.entity.weather.CityInfo
+import com.inc.silence.weather.domain.entity.weather.WeatherDetails
 import com.inc.silence.weather.domain.repository.WeatherRepository
 import retrofit2.Call
 
-class WeatherRepositoryImpl (val networkHandler: NetworkHandler,
-                             val service: WeatherService) : WeatherRepository {
+class WeatherRepositoryImpl (private val networkHandler: NetworkHandler,
+                             private val service: WeatherService) : WeatherRepository {
 
-    override fun weatherByCity(city: String): Either<Failure, WeatherDetails> {
+    override fun weather(lat: Double, lon: Double): Either<Failure, WeatherDetails> {
         return when (networkHandler.isConnected) {
-            true -> request(service.wheatherByCityName(city), { it.toWeather()}, CityInfo.empty())
+            true -> request(service.wheather(lat, lon), { it.toWeather()}, CityInfo.empty())
             false, null -> Left(NetworkConnection())
         }
     }

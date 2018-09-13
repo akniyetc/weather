@@ -94,6 +94,7 @@ dependencies {
     implementation applicationDependencies.koinViewModel
     implementation applicationDependencies.retrofit
     implementation applicationDependencies.okhttpLoggingInterceptor
+    implementation applicationDependencies.location
 
     //Unit/Integration tests dependencies
     testImplementation unitTestDependencies.kotlin
