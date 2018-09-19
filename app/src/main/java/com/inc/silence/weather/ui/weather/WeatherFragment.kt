@@ -15,7 +15,6 @@ import com.inc.silence.weather.extension.observe
 import com.inc.silence.weather.presentation.WeatherView
 import com.inc.silence.weather.presentation.WeatherViewModel
 import com.inc.silence.weather.ui.base.BaseFragment
-import com.inc.silence.weather.ui.base.WeatherFailure.LocationFailure
 import com.inc.silence.weather.ui.base.WeatherFailure.NonExistentWeather
 import kotlinx.android.synthetic.main.fragment_weather.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -48,20 +47,21 @@ class WeatherFragment : BaseFragment() {
     }
 
     private fun renderWeather(detailView: WeatherView?) {
-        tv_city_name.text = detailView?.name
-        tv_weather_name.text = detailView!!.weather[0].description
-        tv_degree.text = detailView.toDegree()
+        detailView?.apply {
+            tv_city_name.text = name
+            tv_weather_name.text = weather[0].description
+            tv_degree.text = toDegree()
+        }
         hideProgress()
     }
 
     private fun handleFailure(failure: Failure?) {
         when (failure) {
-            is NetworkConnection -> { notify(R.string.failure_network_connection); close() }
+            is NetworkConnection -> notify(R.string.failure_network_connection)
             is ServerError -> {
                 notifyWithAction(R.string.failure_server_error, R.string.failure_try_again_snack_bar, ::loadWeatherInfo)
                 hideProgress()
             }
-            is LocationFailure -> {notify(R.string.location_error); hideProgress()}
             is NonExistentWeather -> { notify(R.string.failure_weather_non_existent); close() }
         }
     }
@@ -76,7 +76,7 @@ class WeatherFragment : BaseFragment() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
-            PERMISSIONS_REQUEST_LOCATION -> weatherViewModel.weatherDetails
+            PERMISSIONS_REQUEST_LOCATION -> weatherViewModel.getWeather()
             else -> notify(R.string.permission_denied)
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

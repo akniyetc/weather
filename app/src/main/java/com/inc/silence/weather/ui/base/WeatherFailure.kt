@@ -4,5 +4,4 @@ import com.inc.silence.weather.data.exception.Failure
 
 class WeatherFailure {
     class NonExistentWeather: Failure.FeatureFailure()
-    class LocationFailure: Failure.FeatureFailure()
 }
