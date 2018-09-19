@@ -1,7 +1,7 @@
 package com.inc.silence.weather.data
 
 import com.inc.silence.weather.domain.entity.weather.CityInfo
-import retrofit2.Call
+import kotlinx.coroutines.experimental.Deferred
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,5 +11,5 @@ interface WeatherService {
     }
 
     @GET(WEATHER) fun wheather(@Query("lat") lat: Double,
-                               @Query("lon") lon: Double): Call<CityInfo>
+                               @Query("lon") lon: Double): Deferred<CityInfo>
 }

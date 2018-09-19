@@ -1,15 +1,16 @@
 package com.inc.silence.weather.domain.interactor
 
-import com.inc.silence.weather.domain.entity.location.LatLon
-import com.inc.silence.weather.domain.repository.WeatherRepository
+import com.inc.silence.weather.data.exception.Failure
+import com.inc.silence.weather.data.func.Either
 import com.inc.silence.weather.domain.entity.weather.WeatherDetails
-import com.inc.silence.weather.domain.interactor.GetWeather.Params
-import com.inc.silence.weather.domain.interactor.base.UseCase
+import com.inc.silence.weather.domain.repository.LocationRepository
+import com.inc.silence.weather.domain.repository.WeatherRepository
 
-class GetWeather(private val weatherRepository: WeatherRepository) : UseCase<WeatherDetails, Params>() {
+class GetWeather(private val weatherRepository: WeatherRepository,
+                 private val locationRepository: LocationRepository) {
 
-    override suspend fun run(params: Params) =
-            weatherRepository.weather(params.latLon.lat, params.latLon.lon)
-
-    data class Params(val latLon: LatLon)
+    suspend fun getWeather() : Either<Failure, WeatherDetails> {
+        val latLon = locationRepository.location()
+        return weatherRepository.weather(latLon.lat, latLon.lon)
+    }
 }

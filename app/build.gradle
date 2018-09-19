@@ -93,6 +93,7 @@ dependencies {
     implementation applicationDependencies.koinScope
     implementation applicationDependencies.koinViewModel
     implementation applicationDependencies.retrofit
+    implementation applicationDependencies.retroCoroutinesAdapter
     implementation applicationDependencies.okhttpLoggingInterceptor
     implementation applicationDependencies.location
 

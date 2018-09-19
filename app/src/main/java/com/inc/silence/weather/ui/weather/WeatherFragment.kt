@@ -70,7 +70,7 @@ class WeatherFragment : BaseFragment() {
         if(ContextCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             requestPermissions(listOf(Manifest.permission.ACCESS_FINE_LOCATION).toTypedArray(), PERMISSIONS_REQUEST_LOCATION)
         else {
-            weatherViewModel.loadWeatherDetails()
+            weatherViewModel.getWeather()
         }
     }
 

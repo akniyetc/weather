@@ -15,11 +15,12 @@ ext {
     lottie_version = '2.1.0'
 
     //Third party libraries
-    kotlin_coroutines_version = '0.22.1'
+    kotlin_coroutines_version = '0.26.0'
     koin_version = '1.0.0-RC-1'
     javaxAnnotations_version = '1.0'
     javaxInject_version = '1'
     retrofit_version = '2.3.0'
+    retrofit_coroutines_adapter_version = '1.0.0'
     okhttp_logging_interceptor_version = '3.8.1'
 
     //Unit Testing
@@ -59,6 +60,7 @@ ext {
             javaxAnnotation         : "javax.annotation:jsr250-api:$javaxAnnotations_version",
             javaxInject             : "javax.inject:javax.inject:$javaxInject_version",
             retrofit                : "com.squareup.retrofit2:converter-gson:$retrofit_version",
+            retroCoroutinesAdapter  : "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:$retrofit_coroutines_adapter_version",
             okhttpLoggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$okhttp_logging_interceptor_version",
             location                : "com.google.android.gms:play-services-location:$location_version",
 

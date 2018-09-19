@@ -7,6 +7,7 @@ import com.inc.silence.weather.data.WeatherService
 import com.inc.silence.weather.di.ServiceProperties.API_KEY
 import com.inc.silence.weather.di.ServiceProperties.SERVER_URL
 import com.inc.silence.weather.di.ServiceProperties.UNITS
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
@@ -54,6 +55,7 @@ inline fun <reified T> createWebService(okHttpClient: OkHttpClient, url: String)
             .baseUrl(url)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     return retrofit.create(T::class.java)
 }
