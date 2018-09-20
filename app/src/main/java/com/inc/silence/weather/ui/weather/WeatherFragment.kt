@@ -57,12 +57,12 @@ class WeatherFragment : BaseFragment() {
 
     private fun handleFailure(failure: Failure?) {
         when (failure) {
-            is NetworkConnection -> notify(R.string.failure_network_connection)
+            is NetworkConnection -> {notify(R.string.failure_network_connection); hideProgress()}
             is ServerError -> {
                 notifyWithAction(R.string.failure_server_error, R.string.failure_try_again_snack_bar, ::loadWeatherInfo)
                 hideProgress()
             }
-            is NonExistentWeather -> { notify(R.string.failure_weather_non_existent); close() }
+            is NonExistentWeather -> { notify(R.string.failure_weather_non_existent); hideProgress() }
         }
     }
 
