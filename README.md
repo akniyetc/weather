@@ -1,5 +1,5 @@
 # weather
-Weather App
+Weather App - Clean Architecture
 
 - MVVM
 - Kotlin Coroutines
