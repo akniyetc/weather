@@ -24,7 +24,7 @@
                 android:id="@+id/anim_weather_details"
                 style="@style/WeatherAnimation"
                 android:layout_width="match_parent"
-                android:layout_height="240dp"
+                android:layout_height="200dp"
                 android:layout_centerHorizontal="true"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
@@ -43,36 +43,51 @@
                     android:id="@+id/tv_city_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorTextPrimary"
-                    tools:text="Astana"
                     android:paddingTop="20dp"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="32sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:textSize="32sp"/>
+                    tools:text="Astana" />
 
                 <TextView
                     android:id="@+id/tv_weather_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorTextPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_city_name"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:textSize="16sp"/>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_city_name" />
 
                 <TextView
                     android:id="@+id/tv_degree"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="64sp"
                     android:textColor="@color/colorTextPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_weather_name"
+                    android:textSize="64sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_weather_name"
+                    android:layout_marginStart="8dp"/>
 
             </android.support.constraint.ConstraintLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>
+
     </android.support.design.widget.AppBarLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvForecasts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingBottom="24dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/item_forecast" />
+
 
 </android.support.design.widget.CoordinatorLayout>

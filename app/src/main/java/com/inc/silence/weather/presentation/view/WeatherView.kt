@@ -1,4 +1,4 @@
-package com.inc.silence.weather.presentation
+package com.inc.silence.weather.presentation.view
 
 import com.inc.silence.weather.domain.entity.weather.Main
 import com.inc.silence.weather.domain.entity.weather.WeatherInfo
@@ -7,6 +7,4 @@ data class WeatherView(
         val id: Long,
         val name: String,
         val weather: List<WeatherInfo>,
-        val main: Main) {
-    fun toDegree() = main.temp.toInt().toString() + 0x00B0.toChar()
-}
+        val main: Main)

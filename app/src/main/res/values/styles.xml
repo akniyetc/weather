@@ -36,11 +36,31 @@
         <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/colorTextPrimary</item>
+    </style>
+
     <style name="WeatherAnimation">
         <item name="android:layout_width">match_parent</item>
         <item name="android:scaleType">centerCrop</item>
         <item name="android:transitionName">@string/weather_transition_poster</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="WeatherDetailsTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">@dimen/weather_details_title</item>
+    </style>
+
+    <style name="WeatherDetailsText" parent="WeatherDetailsTitle">
+        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textSize">@dimen/weather_details_text</item>
+        <item name="android:freezesText">true</item>
     </style>
 
 </resources>

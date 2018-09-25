@@ -9,5 +9,7 @@
     <string name="location_error">Location error</string>
 
     <!-- Animations -->
-    <string name="weather_transition_poster">moviePosterTransition</string>
+    <string name="weather_transition_poster">weatherPosterTransition</string>
+
+    <string name="forecast_today">TODAY</string>
 </resources>

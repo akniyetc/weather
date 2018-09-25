@@ -13,6 +13,6 @@ data class WeatherDetails (
                 0L,
                 String.empty(),
                 emptyList(),
-                Main(0.0, 0, 0, 0.0, 0.0))
+                Main(0.0, 0.0, 0, 0.0, 0.0))
     }
 }

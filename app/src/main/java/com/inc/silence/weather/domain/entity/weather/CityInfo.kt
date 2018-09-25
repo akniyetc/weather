@@ -9,17 +9,21 @@ data class CityInfo(
         val main: Main,
         val id: Long,
         val name: String,
-        val cod: Long) {
+        val cod: Long,
+        val dt: Long,
+        val dtTxt: String) {
 
     companion object {
         fun empty() = CityInfo(
                 Coordinate(0F, 0F),
                 emptyList(),
                 String.empty(),
-                Main(0.0, 0, 0, 0.0, 0.0),
+                Main(0.0, 0.0, 0, 0.0, 0.0),
                 0L,
                 String.empty(),
-                0L
+                0L,
+                0L,
+                String.empty()
         )
     }
 
@@ -37,7 +41,7 @@ data class WeatherInfo(
 
 data class Main(
         val temp: Double,
-        val pressure: Int,
+        val pressure: Double,
         val humidity: Int,
         val tempMin: Double,
         val tempMax: Double
