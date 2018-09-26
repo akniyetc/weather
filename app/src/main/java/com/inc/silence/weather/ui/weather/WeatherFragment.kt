@@ -78,7 +78,7 @@ class WeatherFragment : BaseFragment() {
 
     private fun renderForecasts(forecasts: List<ForecastView>?) {
         forecasts?.apply {
-            forecastAdapter.collection = this.sortByDate()
+            forecastAdapter.collection = sortByDate()
         }
     }
 
@@ -86,16 +86,14 @@ class WeatherFragment : BaseFragment() {
         if(ContextCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             requestPermissions(listOf(Manifest.permission.ACCESS_FINE_LOCATION).toTypedArray(), PERMISSIONS_REQUEST_LOCATION)
         else {
-            weatherViewModel.getWeather()
-            weatherViewModel.getForecast()
+            weatherViewModel.loadWeather()
         }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         when (requestCode) {
             PERMISSIONS_REQUEST_LOCATION -> {
-                weatherViewModel.getWeather()
-                weatherViewModel.getForecast()
+                weatherViewModel.loadWeather()
             }
             else -> notify(R.string.permission_denied)
         }

@@ -11,24 +11,24 @@ import com.inc.silence.weather.presentation.view.WeatherView
 class WeatherViewModel(private val getWeather: GetWeather) : BaseViewModel() {
 
     var weatherDetails: MutableLiveData<WeatherView> = MutableLiveData()
-
-    fun getWeather() = loadData({ getWeather.getWeather() }) {
-        it.either(::handleFailure, ::handleWeatherDetails)
-    }
-
-    private fun handleWeatherDetails(weather: WeatherDetails) {
-        this.weatherDetails.value = WeatherView(weather.id, weather.name, weather.weather, weather.main)
-    }
-
-
     var forecasts: MutableLiveData<List<ForecastView>> = MutableLiveData()
 
-    fun getForecast() = loadData({ getWeather.getForecast() }) {
-        it.either(::handleFailure, ::handleForecasts)
+    fun loadWeather() = concatSuspend(
+            { getWeather.getWeather() },
+            { getWeather.getForecast() }
+    ) { weather, forecast ->
+        weather.either(::handleFailure, ::handleWeatherDetails)
+        forecast.either(::handleFailure, ::handleForecasts)
     }
 
     private fun handleForecasts(forecasts: List<CityInfo>) {
-        val forecastsView = forecasts.map { ForecastView(it.dtTxt, it.main.temp, it.weather[0]) }
+        val forecastsView =
+                forecasts.map { ForecastView(it.dtTxt, it.main.temp, it.weather[0]) }
         this.forecasts.value = forecastsView
+    }
+
+    private fun handleWeatherDetails(weather: WeatherDetails) {
+        this.weatherDetails.value =
+                WeatherView(weather.id, weather.name, weather.weather, weather.main)
     }
 }

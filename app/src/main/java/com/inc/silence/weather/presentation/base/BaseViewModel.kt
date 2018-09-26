@@ -19,4 +19,14 @@ abstract class BaseViewModel : ViewModel() {
         val job = GlobalScope.async(Dispatchers.IO) { data.invoke() }
         GlobalScope.launch(Dispatchers.Main) { onResult(job.await()) }
     }
+
+    protected fun <T, R> concatSuspend(first: suspend () -> Either<Failure, T>,
+                                       second: suspend () -> Either<Failure, R>,
+                                       onResult: (Either<Failure, T>, Either<Failure, R>) -> Unit) {
+        GlobalScope.launch(Dispatchers.Main) {
+            val firstJob = GlobalScope.async(Dispatchers.IO) { first.invoke() }
+            val secondJob = GlobalScope.async(Dispatchers.IO) { second.invoke() }
+            onResult(firstJob.await(), secondJob.await())
+        }
+    }
 }

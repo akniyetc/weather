@@ -15,7 +15,7 @@ fun String.toDayOfWeek(): String {
     return formatter.format(date)
 }
 
-fun String.hour() : String {
+fun String.hour(): String {
     val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
     val date = formatter.parse(this)
     val calendar = Calendar.getInstance()
@@ -30,19 +30,23 @@ fun List<ForecastView>.sortByDate(): MutableList<MutableList<ForecastView>> {
     for ((index, forecast) in this.withIndex()) {
         val previous = if (index - 1 < 0) index else index - 1
 
-        if (this[index].date.toDayOfWeek() == this[previous].date.toDayOfWeek()) {
-            innerList.add(forecast)
-        } else {
-            mainList.add(innerList)
-            innerList = mutableListOf()
-            innerList.add(forecast)
+        when {
+            this[index].date.toDayOfWeek() == this[previous].date.toDayOfWeek() -> {
+                innerList.add(forecast)
+                if (this[index] == last()) mainList.add(innerList)
+            }
+            else -> {
+                mainList.add(innerList)
+                innerList = mutableListOf()
+                innerList.add(forecast)
+            }
         }
     }
 
     return mainList
 }
 
-fun List<ForecastView>.degreeByHour(hour: String) : String {
+fun List<ForecastView>.degreeByHour(hour: String): String {
     this.forEach { if (it.date.hour() == hour) return it.temperature.toDegree() }
     return ""
 }
