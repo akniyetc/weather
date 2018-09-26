@@ -8,6 +8,7 @@ fun String.Companion.empty() = ""
 
 fun Double.toDegree() = this.toInt().toString() + 0x00B0.toChar()
 
+
 fun String.toDayOfWeek(): String {
     val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
     val date = formatter.parse(this)
@@ -21,6 +22,14 @@ fun String.hour(): String {
     val calendar = Calendar.getInstance()
     calendar.time = date
     return calendar.get(Calendar.HOUR_OF_DAY).toString()
+}
+
+fun String.hourWithAMorPM(): String {
+    val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
+    val date = formatter.parse(this)
+    val calendar = Calendar.getInstance()
+    calendar.time = date
+    return calendar.get(Calendar.HOUR_OF_DAY).toString() + calendar.get(Calendar.AM_PM)
 }
 
 fun List<ForecastView>.sortByDate(): MutableList<MutableList<ForecastView>> {

@@ -17,7 +17,9 @@ import com.inc.silence.weather.presentation.view.WeatherView
 import com.inc.silence.weather.ui.base.BaseFragment
 import com.inc.silence.weather.ui.base.WeatherFailure.NonExistentWeather
 import com.inc.silence.weather.ui.forecast.ForecastAdapter
+import com.inc.silence.weather.ui.forecast.ForecastDetailsAdapter
 import kotlinx.android.synthetic.main.fragment_weather.*
+import kotlinx.android.synthetic.main.item_forecast.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -26,7 +28,8 @@ class WeatherFragment : BaseFragment() {
     override fun layoutId() = R.layout.fragment_weather
 
     private val weatherViewModel: WeatherViewModel by viewModel()
-    private val forecastAdapter: ForecastAdapter = ForecastAdapter()
+    private val forecastAdapter = ForecastAdapter()
+    private val forecastDetailAdapter = ForecastDetailsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +44,7 @@ class WeatherFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initializeView()
+        initializeForecastsView()
         loadWeatherInfo()
     }
 
@@ -70,16 +73,33 @@ class WeatherFragment : BaseFragment() {
         }
     }
 
-    private fun initializeView() {
+    private fun initializeForecastsView() {
         rvForecasts.layoutManager = LinearLayoutManager(context)
         rvForecasts.adapter = forecastAdapter
         rvForecasts.dispatchNestedScrolling()
+    }
+
+    private fun initializeForecastDetailView() {
+
+        //TODO: resolve rvForecastDetail == null
+        initForecastDetailData()
+        rvForecastDetail.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        rvForecastDetail.adapter = forecastDetailAdapter
+        rvForecastDetail.dispatchNestedScrolling()
+    }
+
+    private fun initForecastDetailData() {
+        forecastAdapter.clickListener = {
+            forecastDetailAdapter.collection = it
+            details_content.visible(true)
+        }
     }
 
     private fun renderForecasts(forecasts: List<ForecastView>?) {
         forecasts?.apply {
             forecastAdapter.collection = sortByDate()
         }
+        initializeForecastDetailView()
     }
 
     private fun checkLocationPermission() {

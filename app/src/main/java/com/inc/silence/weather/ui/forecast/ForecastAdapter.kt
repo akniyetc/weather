@@ -30,8 +30,15 @@ class ForecastAdapter : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(forecasts: List<ForecastView>, clickListener: (List<ForecastView>) -> Unit) {
             itemView.tv_week_day.text = forecasts[0].date.toDayOfWeek()
-            itemView.tv_temp.text = forecasts.degreeByHour("15")
+
+            if (forecasts.degreeByHour("15") != "") {
+                itemView.tv_temp.text = forecasts.degreeByHour("15")
+            } else {
+                itemView.tv_temp.text = forecasts[0].temperature.toDegree()
+            }
+
             itemView.tv_today.visible(forecasts[0].date.toDayOfWeek() == today())
+            itemView.setOnClickListener { clickListener.invoke(forecasts) }
         }
 
         private fun today(): String {
