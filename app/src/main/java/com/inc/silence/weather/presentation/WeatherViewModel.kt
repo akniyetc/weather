@@ -23,7 +23,7 @@ class WeatherViewModel(private val getWeather: GetWeather) : BaseViewModel() {
 
     private fun handleForecasts(forecasts: List<CityInfo>) {
         val forecastsView =
-                forecasts.map { ForecastView(it.dtTxt, it.main.temp, it.weather[0]) }
+                forecasts.map { ForecastView(it.dtTxt, it.main.temp, it.weather.first()) }
         this.forecasts.value = forecastsView
     }
 
