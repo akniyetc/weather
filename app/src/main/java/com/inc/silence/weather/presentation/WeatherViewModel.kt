@@ -29,6 +29,6 @@ class WeatherViewModel(private val getWeather: GetWeather) : BaseViewModel() {
 
     private fun handleWeatherDetails(weather: WeatherDetails) {
         this.weatherDetails.value =
-                WeatherView(weather.id, weather.name, weather.weather, weather.main)
+                WeatherView(weather.id, weather.name, weather.weather.first(), weather.main)
     }
 }

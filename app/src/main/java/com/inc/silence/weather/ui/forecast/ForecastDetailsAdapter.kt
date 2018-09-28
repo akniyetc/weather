@@ -4,8 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.inc.silence.weather.R
-import com.inc.silence.weather.extension.hourWithAMorPM
-import com.inc.silence.weather.extension.inflate
+import com.inc.silence.weather.extension.*
 import com.inc.silence.weather.presentation.view.ForecastView
 import kotlinx.android.synthetic.main.item_forecast_details.view.*
 import kotlin.properties.Delegates
@@ -25,9 +24,12 @@ class ForecastDetailsAdapter : RecyclerView.Adapter<ForecastDetailsAdapter.ViewH
     override fun getItemCount() = collection.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val IMG_URL = "https://api.openweathermap.org/img/w/"
         fun bind(forecast: ForecastView) {
-            itemView.tv_forecast_detail_time.text = forecast.date.hourWithAMorPM()
-            itemView.tv_forecast_detail_degree.text = forecast.temperature.toString()
+            itemView.tvForecastDetailHour.text = forecast.date.hour(false)
+            itemView.tvForecastDetailAmPm.text = forecast.date.amOrPm()
+            itemView.imgWeatherDetailsIcon.loadFromUrl(IMG_URL + forecast.weather.icon)
+            itemView.tvForecastDetailDegree.text = forecast.temperature.toDegree()
         }
     }
 }

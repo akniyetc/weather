@@ -6,5 +6,6 @@ import com.inc.silence.weather.domain.entity.weather.WeatherInfo
 data class WeatherView(
         val id: Long,
         val name: String,
-        val weather: List<WeatherInfo>,
-        val main: Main)
+        val weather: WeatherInfo,
+        val main: Main
+)

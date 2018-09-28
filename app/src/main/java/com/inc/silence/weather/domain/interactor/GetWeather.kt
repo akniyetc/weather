@@ -10,12 +10,12 @@ import com.inc.silence.weather.domain.repository.WeatherRepository
 class GetWeather(private val weatherRepository: WeatherRepository,
                  private val locationRepository: LocationRepository) {
 
-    suspend fun getWeather() : Either<Failure, WeatherDetails> {
+    suspend fun getWeather(): Either<Failure, WeatherDetails> {
         val latLon = locationRepository.location()
         return weatherRepository.weather(latLon.lat, latLon.lon)
     }
 
-    suspend fun getForecast() : Either<Failure, List<CityInfo>> {
+    suspend fun getForecast(): Either<Failure, List<CityInfo>> {
         val latLon = locationRepository.location()
         return weatherRepository.forecast(latLon.lat, latLon.lon)
     }

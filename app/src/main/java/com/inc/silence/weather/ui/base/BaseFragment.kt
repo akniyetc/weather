@@ -11,10 +11,10 @@ import android.view.ViewGroup
 import com.inc.silence.weather.R
 import com.inc.silence.weather.extension.appContext
 import com.inc.silence.weather.extension.viewContainer
-import kotlinx.android.synthetic.main.toolbar.*
+import kotlinx.android.synthetic.main.activity_weather.*
 
 abstract class BaseFragment : Fragment() {
-    
+
     abstract fun layoutId(): Int
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =

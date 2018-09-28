@@ -11,6 +11,10 @@
     <dimen name="weather_details_title">20dp</dimen>
     <dimen name="weather_details_text">15dp</dimen>
 
+    <dimen name="forecast_details_title">24sp</dimen>
+    <dimen name="forecast_details_text">12sp</dimen>
+    <dimen name="forecast_details_text_hour">10sp</dimen>
+
     <!-- Progress view. -->
     <dimen name="progress_view_height">10dp</dimen>
 </resources>

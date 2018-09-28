@@ -63,4 +63,23 @@
         <item name="android:freezesText">true</item>
     </style>
 
+    <style name="ForecastDetailsTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textSize">@dimen/forecast_details_title</item>
+    </style>
+
+    <style name="ForecastDetailsText" parent="ForecastDetailsTitle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/forecast_details_text</item>
+        <item name="android:freezesText">true</item>
+    </style>
+
+    <style name="ForecastDetailsTextHour" parent="ForecastDetailsTitle">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/forecast_details_text_hour</item>
+        <item name="android:freezesText">true</item>
+    </style>
 </resources>

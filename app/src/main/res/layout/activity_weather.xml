@@ -4,18 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.weather.WeatherActivity"
-    android:background="@color/colorTextPrimary">
+    android:background="@color/colorTextPrimary"
+    tools:context=".ui.weather.WeatherActivity">
 
-    <include layout="@layout/toolbar"/>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appbar"
+        android:layout_marginBottom="-7dp"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:indeterminateOnly="true"
+            android:indeterminateTint="@color/colorAccent"
+            android:paddingTop="-4dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="4dp" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/appbar"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
 </android.support.design.widget.CoordinatorLayout>

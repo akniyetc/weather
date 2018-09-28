@@ -1,5 +1,6 @@
 package com.inc.silence.weather.ui.forecast
 
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -17,28 +18,38 @@ class ForecastAdapter : RecyclerView.Adapter<ForecastAdapter.ViewHolder>() {
         notifyDataSetChanged()
     }
 
-    internal var clickListener: (List<ForecastView>) -> Unit = { _ -> }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
             ViewHolder(parent.inflate(R.layout.item_forecast))
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) =
-            viewHolder.bind(collection[position], clickListener)
+            viewHolder.bind(collection[position])
 
     override fun getItemCount() = collection.size
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(forecasts: List<ForecastView>, clickListener: (List<ForecastView>) -> Unit) {
-            itemView.tv_week_day.text = forecasts[0].date.toDayOfWeek()
+        private val forecastDetailsAdapter = ForecastDetailsAdapter()
+        private val IMG_URL = "https://api.openweathermap.org/img/w/"
 
-            if (forecasts.degreeByHour("15") != "") {
-                itemView.tv_temp.text = forecasts.degreeByHour("15")
-            } else {
-                itemView.tv_temp.text = forecasts[0].temperature.toDegree()
+        fun bind(forecasts: List<ForecastView>) {
+
+            initForecastDetailsView(forecasts)
+
+            itemView.tvWeekDay.text = forecasts.first().date.toDayOfWeek()
+            itemView.tvTemp.text = forecasts.weatherByHour().temperature.toDegree()
+            itemView.imgWeatherIcon.loadFromUrl(IMG_URL + forecasts.weatherByHour().weather.icon)
+
+            itemView.tvToday.visible(forecasts.first().date.toDayOfWeek() == today())
+            itemView.setOnClickListener {
+                itemView.detailsContent.visible(itemView.detailsContent.visibility == View.GONE)
             }
+        }
 
-            itemView.tv_today.visible(forecasts[0].date.toDayOfWeek() == today())
-            itemView.setOnClickListener { clickListener.invoke(forecasts) }
+        private fun initForecastDetailsView(forecasts: List<ForecastView>) {
+            itemView.rvForecastDetail.layoutManager =
+                    LinearLayoutManager(itemView.context, LinearLayoutManager.HORIZONTAL, false)
+            itemView.rvForecastDetail.adapter = forecastDetailsAdapter
+            itemView.rvForecastDetail.dispatchNestedScrolling()
+            forecastDetailsAdapter.collection = forecasts
         }
 
         private fun today(): String {

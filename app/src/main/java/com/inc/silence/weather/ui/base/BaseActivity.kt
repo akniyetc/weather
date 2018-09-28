@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.inc.silence.weather.R
 import com.inc.silence.weather.extension.inTansaction
-import kotlinx.android.synthetic.main.toolbar.*
 
 abstract class BaseActivity : AppCompatActivity() {
 
@@ -12,7 +11,6 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_weather)
-        setSupportActionBar(toolbar)
         addFragment(savedInstanceState)
     }
 
@@ -22,10 +20,12 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
-    abstract fun fragment() : BaseFragment
+    abstract fun fragment(): BaseFragment
 
     private fun addFragment(savedInstanceState: Bundle?) =
-            savedInstanceState ?: supportFragmentManager.inTansaction { add(
-                    R.id.fragmentContainer, fragment()
-            ) }
+            savedInstanceState ?: supportFragmentManager.inTansaction {
+                add(
+                        R.id.fragmentContainer, fragment()
+                )
+            }
 }

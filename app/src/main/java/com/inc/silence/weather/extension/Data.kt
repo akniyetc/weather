@@ -16,20 +16,20 @@ fun String.toDayOfWeek(): String {
     return formatter.format(date)
 }
 
-fun String.hour(): String {
+fun String.hour(is24: Boolean): String {
     val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
     val date = formatter.parse(this)
     val calendar = Calendar.getInstance()
     calendar.time = date
-    return calendar.get(Calendar.HOUR_OF_DAY).toString()
+    return if (is24) calendar.get(Calendar.HOUR_OF_DAY).toString() else calendar.get(Calendar.HOUR).toString()
 }
 
-fun String.hourWithAMorPM(): String {
+fun String.amOrPm(): String {
     val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
     val date = formatter.parse(this)
     val calendar = Calendar.getInstance()
     calendar.time = date
-    return calendar.get(Calendar.HOUR_OF_DAY).toString() + calendar.get(Calendar.AM_PM)
+    return if (calendar.get(Calendar.AM_PM) == 0) "AM" else "PM"
 }
 
 fun List<ForecastView>.sortByDate(): MutableList<MutableList<ForecastView>> {
@@ -55,7 +55,7 @@ fun List<ForecastView>.sortByDate(): MutableList<MutableList<ForecastView>> {
     return mainList
 }
 
-fun List<ForecastView>.degreeByHour(hour: String): String {
-    this.forEach { if (it.date.hour() == hour) return it.temperature.toDegree() }
-    return ""
+fun List<ForecastView>.weatherByHour(): ForecastView {
+    this.forEach { if (it.date.hour(true) == "15") return it }
+    return this.first()
 }

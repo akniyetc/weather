@@ -17,9 +17,7 @@ import com.inc.silence.weather.presentation.view.WeatherView
 import com.inc.silence.weather.ui.base.BaseFragment
 import com.inc.silence.weather.ui.base.WeatherFailure.NonExistentWeather
 import com.inc.silence.weather.ui.forecast.ForecastAdapter
-import com.inc.silence.weather.ui.forecast.ForecastDetailsAdapter
 import kotlinx.android.synthetic.main.fragment_weather.*
-import kotlinx.android.synthetic.main.item_forecast.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -29,7 +27,6 @@ class WeatherFragment : BaseFragment() {
 
     private val weatherViewModel: WeatherViewModel by viewModel()
     private val forecastAdapter = ForecastAdapter()
-    private val forecastDetailAdapter = ForecastDetailsAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,21 +52,25 @@ class WeatherFragment : BaseFragment() {
 
     private fun renderWeather(detailView: WeatherView?) {
         detailView?.apply {
-            tv_city_name.text = name
-            tv_weather_name.text = weather[0].description
-            tv_degree.text = main.temp.toDegree()
+            tvCityName.text = name
+            tvWeatherName.text = weather.description
+            tvDegree.text = main.temp.toDegree()
         }
         hideProgress()
     }
 
     private fun handleFailure(failure: Failure?) {
         when (failure) {
-            is NetworkConnection -> {notify(R.string.failure_network_connection); hideProgress()}
+            is NetworkConnection -> {
+                notify(R.string.failure_network_connection); hideProgress()
+            }
             is ServerError -> {
                 notifyWithAction(R.string.failure_server_error, R.string.failure_try_again_snack_bar, ::loadWeatherInfo)
                 hideProgress()
             }
-            is NonExistentWeather -> { notify(R.string.failure_weather_non_existent); hideProgress() }
+            is NonExistentWeather -> {
+                notify(R.string.failure_weather_non_existent); hideProgress()
+            }
         }
     }
 
@@ -79,31 +80,14 @@ class WeatherFragment : BaseFragment() {
         rvForecasts.dispatchNestedScrolling()
     }
 
-    private fun initializeForecastDetailView() {
-
-        //TODO: resolve rvForecastDetail == null
-        initForecastDetailData()
-        rvForecastDetail.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        rvForecastDetail.adapter = forecastDetailAdapter
-        rvForecastDetail.dispatchNestedScrolling()
-    }
-
-    private fun initForecastDetailData() {
-        forecastAdapter.clickListener = {
-            forecastDetailAdapter.collection = it
-            details_content.visible(true)
-        }
-    }
-
     private fun renderForecasts(forecasts: List<ForecastView>?) {
         forecasts?.apply {
             forecastAdapter.collection = sortByDate()
         }
-        initializeForecastDetailView()
     }
 
     private fun checkLocationPermission() {
-        if(ContextCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
             requestPermissions(listOf(Manifest.permission.ACCESS_FINE_LOCATION).toTypedArray(), PERMISSIONS_REQUEST_LOCATION)
         else {
             weatherViewModel.loadWeather()
